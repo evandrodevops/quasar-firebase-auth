@@ -1,2 +1,3 @@
-# quasar-firebase-auth
-Autenticação com Firebase em projeto Quasar.
+# Quasar App
+
+> WIP
