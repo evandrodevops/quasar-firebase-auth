@@ -10,12 +10,14 @@
 <script>
 export default {
   name: 'IndexPage',
+  computed: {
+    userIsAuthenticated () {
+      let currentUser = this.$store.getters.user
+      return currentUser !== null
+    }
+  },
   mounted () {
-    console.log('Index Page')
-    console.log('-- Firebase AUTH')
-    console.log(this.$auth)
-    console.log('-- Firebase DB')
-    console.log(this.$db)
+    console.log(this.userIsAuthenticated)
   }
 }
 </script>

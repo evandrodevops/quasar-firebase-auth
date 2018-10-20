@@ -1,21 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-import example from './module-example'
+import VuexPersistence from 'vuex-persist'
+import user from './user'
+import shared from './shared'
 
 Vue.use(Vuex)
 
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation
- */
+const store = new Vuex.Store({
+  modules: {
+    user: user,
+    shared: shared
+  },
+  plugins: [(new VuexPersistence()).plugin]
+})
 
-export default function (/* { ssrContext } */) {
-  const Store = new Vuex.Store({
-    modules: {
-      example
-    }
-  })
-
-  return Store
-}
+export default store

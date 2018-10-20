@@ -6,7 +6,14 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    this.$auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
+  }
 }
 </script>
 
