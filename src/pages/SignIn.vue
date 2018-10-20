@@ -3,20 +3,24 @@
     <q-field label="Usuário"
              error-label="Preencha o usuário">
       <q-input type="text"
-               v-model="login.user"
-               @keyup.enter="submitForm" />
+               v-model="form.user"
+               @keyup.enter="onSignIn" />
     </q-field>
     <q-field label="Senha"
              error-label="Preencha a senha">
       <q-input type="password"
-               v-model="login.password"
-               @keyup.enter="submitForm" />
+               v-model="form.password"
+               @keyup.enter="onSignIn" />
     </q-field>
-    <q-field>
+    <q-field class="text-right">
       <q-btn color="primary"
-             class="full-width"
-             label="ENTRAR"
-             @click="submitForm"
+             label="Entre"
+             class="q-mr-sm"
+             @click="onSignIn" />
+      <q-btn flat
+             color="primary"
+             label="Cadastre-se"
+             @click="onRedirectToSignUp"
       />
     </q-field>
   </q-page>
@@ -29,19 +33,23 @@ export default {
   components: { QBtn, QField, QInput },
   data () {
     return {
-      login: {
+      form: {
         user: '',
         password: ''
       }
     }
   },
   methods: {
-    submitForm () {
+    onRedirectToSignUp () {
+      this.$router.push({path: '/sign-up'})
+    },
+    onSignIn () {
       let q = this.$q
-      this.$auth.signInWithEmailAndPassword(this.login.user, this.login.password)
-        .then(() => this.$router.push({path: '/'}))
+      let router = this.$router
+      this.$auth.signInWithEmailAndPassword(this.form.user, this.form.password)
+        .then(() => router.push({path: '/'}))
         .catch(function (error) {
-          q.notify('error.code: ' + error.code + ', error.message: ' + error.message)
+          q.notify(error.message)
         })
     }
   }

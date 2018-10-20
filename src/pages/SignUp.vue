@@ -12,7 +12,7 @@
                v-model="form.password"
                @keyup.enter="onSignup" />
     </q-field>
-    <q-field label="Confirme a Senha"
+    <q-field label="Confirmação da Senha"
              error-label="Preencha a confirmação da senha">
       <q-input type="password"
                v-model="form.passwordConfirmation"
@@ -66,7 +66,12 @@ export default {
   },
   methods: {
     onSignup () {
+      let q = this.$q
       this.$store.dispatch('signUserUp', {email: this.form.email, password: this.form.password})
+        .then(() => this.$router.push({path: '/profile'}))
+        .catch(function (error) {
+          q.notify(error.message)
+        })
     }
   }
 }
